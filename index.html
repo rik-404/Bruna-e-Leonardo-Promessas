@@ -6,7 +6,7 @@
 <title>Caixinha de Promessas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Open+Sans:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&family=Open+Sans:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
 <style>
 /* Layout: uma caixinha de promessas. À esquerda os noivos e o convite, à direita a
    caixa de onde sai um cartão de papel. No celular vira uma coluna só. Tema único (claro). */
@@ -22,6 +22,8 @@
   --amor:#9A3B4A; --compromisso:#A1701F; --esperanca:#3A7655; --fe:#3C6592; --alegria:#BC5C2A; --paz:#6E6398;
   --tema:var(--amor);
   --serifa:"Instrument Serif","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --biblia:"EB Garamond","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --folha:#FBF4E6; --folha-2:#F4E8D3; --ouro:#B8935A;
   --nomes:"Pinyon Script","Snell Roundhand","Apple Chancery",cursive;
   --texto:"Open Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
@@ -84,20 +86,35 @@ button{font:inherit;cursor:pointer}
 .aviso{margin:0;font-size:.92rem;color:var(--tinta-suave);text-align:center;max-width:30em;min-height:1.4em}
 .aviso.erro{color:var(--amor);font-weight:500}
 
-/* o cartão */
-.cartao{width:min(520px,100%);background:var(--papel);border-radius:6px;padding:clamp(24px,5vw,40px);box-shadow:0 1px 0 rgba(46,30,20,.08),0 30px 50px -30px rgba(46,30,20,.5);border-top:8px solid var(--tema);display:flex;flex-direction:column;gap:20px}
+/* o cartão: uma folha de Bíblia */
+.cartao{position:relative;width:min(540px,100%);background:linear-gradient(90deg,rgba(92,59,39,.13),rgba(92,59,39,0) 7%),linear-gradient(160deg,var(--folha),var(--folha-2));border-radius:3px 6px 6px 3px;padding:clamp(16px,3.6vw,24px);border-right:5px solid var(--ouro);border-bottom:3px solid var(--ouro);box-shadow:0 1px 0 rgba(46,30,20,.08),0 30px 50px -30px rgba(46,30,20,.55)}
 .cartao[hidden],.caixa[hidden],[hidden]{display:none!important}
-.tema{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--tema);margin:0}
-.tema::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--tema)}
-.verso{font-family:var(--serifa);font-size:clamp(1.6rem,5.4vw,2.25rem);line-height:1.18;margin:0;text-wrap:pretty;overflow-wrap:anywhere}
-.verso.longo{font-size:clamp(1.3rem,4.4vw,1.7rem);line-height:1.25}
-.ref{margin:0;padding-top:16px;border-top:1px solid var(--linha);font-weight:600;font-size:.95rem;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.fita{position:absolute;top:-8px;right:clamp(26px,8vw,44px);width:18px;height:74px;background:var(--tema);clip-path:polygon(0 0,100% 0,100% 100%,50% 84%,0 100%);filter:drop-shadow(0 3px 3px rgba(46,30,20,.3))}
+.folha{border:1px solid var(--ouro);outline:1px solid var(--ouro);outline-offset:-5px;padding:clamp(20px,5vw,34px) clamp(18px,5vw,34px) clamp(18px,4vw,26px);display:flex;flex-direction:column;gap:18px}
+.cabeca{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:0 0 9px;margin-right:clamp(30px,9vw,52px);border-bottom:3px double var(--ouro);font-family:var(--biblia);font-size:.82rem;letter-spacing:.2em;text-transform:uppercase;color:var(--tinta-suave)}
+.cabeca b{font-weight:600;color:var(--tinta)}
+.tema{display:inline-flex;align-items:center;gap:7px;font-family:var(--texto);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--tema);margin:0;align-self:flex-start}
+.tema::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--tema)}
+.verso{font-family:var(--biblia);font-size:clamp(1.32rem,4.7vw,1.62rem);line-height:1.5;margin:0;overflow-wrap:anywhere;color:var(--tinta)}
+@media (min-width:520px){.verso{text-align:justify}}
+.verso.longo{font-size:clamp(1.14rem,4vw,1.34rem)}
+.verso .num{font-family:var(--texto);font-size:.5em;font-weight:600;color:var(--tema);vertical-align:.95em;margin-right:.35em;font-variant-numeric:tabular-nums}
+.verso .capitular{float:left;font-size:3.35em;line-height:.82;padding:.06em .09em 0 0;color:var(--tema);font-weight:500}
+.ornamento{display:flex;align-items:center;gap:12px;color:var(--ouro);clear:both}
+.ornamento::before,.ornamento::after{content:"";flex:1;height:1px;background:var(--ouro)}
+.ornamento i{width:7px;height:7px;background:currentColor;transform:rotate(45deg)}
+.ref{margin:0;text-align:center;font-family:var(--biblia);font-weight:600;font-size:1rem;letter-spacing:.16em;text-transform:uppercase;font-variant-numeric:tabular-nums}
 .acoes{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:center}
 .entrar{transform-origin:50% 100%;animation:sair-da-caixa .85s cubic-bezier(.2,.8,.2,1) both}
 @keyframes sair-da-caixa{from{opacity:0;transform:perspective(900px) translateY(70px) rotateX(-55deg) scale(.92)}55%{opacity:1}to{opacity:1;transform:perspective(900px) translateY(0) rotateX(0deg) scale(1)}}
 .entrar .tema{animation:surgir .5s .35s both}
-.entrar .ref{animation:surgir .6s var(--fim,1s) both}
-.verso .p{display:inline-block;animation:palavra .6s both;animation-delay:calc(.45s + var(--n)*var(--passo))}
+.entrar .cabeca{animation:surgir .5s .3s both}
+.entrar .fita{animation:fita .7s .5s cubic-bezier(.2,.8,.2,1) both}
+@keyframes fita{from{transform:translateY(-70px)}to{transform:translateY(0)}}
+.entrar .ornamento,.entrar .ref{animation:surgir .6s var(--fim,1s) both}
+.verso .p{display:inline-block;}
+.verso .capitular.p{display:block}
+.verso .p{animation:palavra .6s both;animation-delay:calc(.45s + var(--n)*var(--passo))}
 @keyframes palavra{from{opacity:0;transform:translateY(.35em);filter:blur(4px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
 
 .demo{margin:0;background:var(--papel);border:1px dashed var(--tinta-suave);border-radius:6px;padding:10px 14px;font-size:.85rem;color:var(--tinta-suave);max-width:520px}
@@ -139,9 +156,14 @@ footer{max-width:1080px;margin:0 auto;padding:0 clamp(20px,5vw,48px) 28px;font-s
     </div>
 
     <article class="cartao" id="cartao" hidden>
-      <p class="tema" id="tema"></p>
-      <p class="verso" id="verso"></p>
-      <p class="ref" id="ref"></p>
+      <span class="fita" aria-hidden="true"></span>
+      <div class="folha">
+        <div class="cabeca" aria-hidden="true"><b id="livro"></b><span id="capitulo"></span></div>
+        <p class="tema" id="tema"></p>
+        <p class="verso" id="verso"></p>
+        <div class="ornamento" aria-hidden="true"><i></i></div>
+        <p class="ref" id="ref"></p>
+      </div>
     </article>
 
     <div class="acoes">
@@ -229,21 +251,21 @@ function mostrar(i, animar){
   document.documentElement.style.setProperty("--tema", "var(--" + v.k + ")");
   $("tema").textContent = TEMAS[v.k];
   const verso = $("verso");
+  const m = v.r.match(/^(.*) (\d+):(\d+)/);           // "Romanos 8:38-39" -> livro, capítulo, versículo
+  $("livro").textContent = m ? m[1] : v.r;
+  $("capitulo").textContent = m ? "Capítulo " + m[2] : "";
   verso.textContent = "";
-  if (animar && !calmo){                         // o texto aparece palavra por palavra
-    const palavras = v.t.split(" ");
-    const passo = Math.min(45, 1600 / palavras.length);
-    verso.style.setProperty("--passo", passo + "ms");
-    palavras.forEach((p, n) => {
-      const s = document.createElement("span");
-      s.className = "p"; s.style.setProperty("--n", n); s.textContent = p;
-      verso.append(s, " ");
-    });
-    cartao.style.setProperty("--fim", (450 + palavras.length * passo + 150) + "ms");
-  } else {
-    verso.textContent = v.t;
-  }
-  $("verso").classList.toggle("longo", v.t.length > 190);
+  verso.setAttribute("aria-label", v.t);
+  const mk = (cls, txt, n) => { const s = document.createElement("span"); s.className = cls; s.textContent = txt; if (n !== undefined) s.style.setProperty("--n", n); return s; };
+  const mover = animar && !calmo;                 // o texto aparece palavra por palavra
+  const palavras = v.t.split(" ");
+  const passo = Math.min(45, 1600 / palavras.length);
+  verso.style.setProperty("--passo", passo + "ms");
+  const letra = /^\p{L}/u.test(v.t);              // capitular só quando começa com letra
+  if (letra){ verso.append(mk(mover ? "capitular p" : "capitular", palavras[0][0], 0)); palavras[0] = palavras[0].slice(1); }
+  palavras.forEach((p, n) => { if (p) verso.append(mover ? mk("p", p, n) : p); verso.append(" "); });
+  cartao.style.setProperty("--fim", (mover ? 450 + palavras.length * passo + 150 : 0) + "ms");
+  $("verso").classList.toggle("longo", v.t.length > 170);
   $("ref").textContent = v.r;
   $("caixa").hidden = true;
   cartao.hidden = false;
