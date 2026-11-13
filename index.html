@@ -216,8 +216,8 @@ const CONFIG = {
   noiva: "Bruna",
   noivo: "Leonardo",
   data: "10 de abril de 2027",               // ex.: "12 de dezembro de 2026" (opcional)
-  supabaseUrl: "",        // ex.: "https://abcd1234.supabase.co"
-  supabaseKey: ""         // chave "anon public"
+  supabaseUrl: "https://vygbmcwbftltqygfuczp.supabase.co",
+  supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5Z2JtY3diZnRsdHF5Z2Z1Y3pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQ1NTE5NTUsImV4cCI6MjExMDEyNzk1NX0.rP4AithCurKwd-4_exyUt-eZdIcZnfPoh4XEROWMlkM"
 };
 
 /* Os 300 versículos. A posição na lista é o número guardado no banco:
@@ -313,7 +313,7 @@ function textoRestam(n){
 }
 
 async function sortearNoServidor(){
-  const resp = await fetch(CONFIG.supabaseUrl.replace(/\/$/, "") + "/rest/v1/rpc/sortear_versiculo", {
+  const resp = await fetch(CONFIG.supabaseUrl.replace(/\/+$/, "").replace(/\/rest\/v1$/, "") + "/rest/v1/rpc/sortear_versiculo", {
     method: "POST",
     headers: {"Content-Type":"application/json", "apikey": CONFIG.supabaseKey, "Authorization": "Bearer " + CONFIG.supabaseKey},
     body: JSON.stringify({p_convidado: estado.id})
